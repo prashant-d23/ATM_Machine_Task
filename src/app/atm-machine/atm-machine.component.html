@@ -1,0 +1,43 @@
+
+<div class="container w-50 bg-secondary bg-opacity-25 mt-5 rounded-3" style="border: 2px solid black">
+<h2 class="text-center mt-2">ATM Machine</h2>
+
+<h3>Current Available Denomination in Machine</h3>
+
+<table class="table table-striped">
+  <tbody>
+    <tr *ngFor="let note of notes; let i = index">
+      <th>{{note.value}}</th>
+      <td>{{note.count}}</td>
+      <td><input type="number" [(ngModel)]="notes[i].deposite" (change)="calculateTotal($event,i)"></td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <th>{{totalAmt}}</th>
+      <td><button class="btn btn-primary" (click)="deposite()">Deposit</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="container">
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Enter amount for withdrawal" [(ngModel)]="withdrawAmount" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <span class="input-group-text btn btn-primary" id="basic-addon2" (click)="withdrawAmt()">Withdraw!</span>
+  </div>
+</div>
+
+<div class="container" style="border: 2px solid black;">
+  <h2>Log</h2>
+<div *ngFor="let log of transactions">
+  <div class="alert alert-success" role="alert" style="height: 80px;">
+   <!-- <span class="fs-6">{{log.type}} </span><span *ngFor="let note of noteCounter">{{note}} </span> -->
+   <p>{{log.dateTime}}</p>
+  </div>
+</div>
+</div>
+
+
+
+</div>
+
+
