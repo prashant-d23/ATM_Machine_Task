@@ -14,48 +14,64 @@ export class ATMMachineComponent {
     {value : 100, count : 0, deposite : 0},
   ];
 
-  totalDeposit = 0;
-
-  transactions:any[] = [];
+  withdrawLog:any[] = [];
+  depositeLog:any[] = [];
 
   totalAmt = 0;
 
   deposite(){
-    this.notes.forEach(note => {
-      note.count += note.deposite
+    let totalDeposited = 0;
+
+  this.notes.forEach(note => {
+    if (note.deposite >= 0) {
+      note.count += Number(note.deposite);
+      totalDeposited += note.deposite * note.value;
       note.deposite = 0;
-    })
+    }
+  });
+
+  if (totalDeposited > 0) {
+    this.depositeLog.unshift({
+      dateTime: new Date(),
+      type: 'Deposit',
+      amount: totalDeposited
+    });
+  }
 
   }
+
+
+  noteIndex:any;
   calculateTotal(amt:any, index:number){
     // console.log(amt.target.value, index)
-    this.totalAmt += this.notes[index].value * amt.target.value
+    this.noteIndex = index;
+    if(amt !== 0){
+      this.totalAmt += this.notes[index].value * amt.target.value //total amt calulation
+
+    }
     console.log(this.totalAmt)
   }
 
   withdrawAmount!:number;
   withdrawAmt(){
-    if(this.totalAmt > 0 && this.totalAmt > this.withdrawAmount){
+    if(this.totalAmt > 0 && this.totalAmt >= this.withdrawAmount){
       this.totalAmt -= this.withdrawAmount;
     }else{
       alert("Can Not Withdraw!")
     }
-    this.withdrawLog();
+    this.withdraw();
 
 
   }
 
-  // noteCounter:any = [];
-  withdrawLog(){
-
-    // this.notes.forEach(note =>{
-    //   this.noteCounter.push(`${note.value}:${note.count}`)
-    // })
-    this.transactions.push({
+  withdraw(){
+    this.withdrawLog.unshift({
       dateTime : new Date(),
       type : 'Withdrawal',
       amount : this.withdrawAmount
     });
     this.withdrawAmount = 0;
   }
+
+
 }
