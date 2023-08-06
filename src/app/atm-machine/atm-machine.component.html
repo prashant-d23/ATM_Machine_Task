@@ -42,6 +42,12 @@
   </div>
 </div>
 
+<div *ngFor="let log of errorLog">
+  <div class="alert alert-danger" role="alert" style="height: 80px;">
+  <h6 class="fs-6">{{log.msg}}</h6>
+  <p>{{log.dateTime}}</p>
+  </div>
+</div>
 
 </div>
 
