@@ -19,42 +19,75 @@ export class ATMMachineComponent {
 
   totalAmt = 0;
 
-  deposite(){
-    let totalDeposited = 0;
+  // deposite(){
+  //   let totalDeposited = 0;
 
-  this.notes.forEach(note => {
-    if (note.deposite >= 0) {
-      note.count += Number(note.deposite);
-      totalDeposited += note.deposite * note.value;
-      note.deposite = 0;
-    }
-  });
+  // this.notes.forEach(note => {
+  //   if (note.deposite >= 0) {
+  //     note.count += Number(note.deposite);
+  //     totalDeposited += note.deposite * note.value;
+  //     note.deposite = 0;
+  //   }
+  // });
 
-  if (totalDeposited > 0) {
-    this.depositeLog.unshift({
-      dateTime: new Date(),
-      type: 'Deposit',
-      amount: totalDeposited
-    });
-  }
+  // if (totalDeposited > 0) {
+  //   this.depositeLog.unshift({
+  //     dateTime: new Date(),
+  //     type: 'Deposit',
+  //     amount: totalDeposited
+  //   });
+  // }
 
-  }
+  // }
+
+  // noteIndex:any;
+  // calculateTotal(amt:any, index:number){
+    //   // console.log(amt.target.value, index)
+    //   this.noteIndex = index;
+    //   if(amt !== 0){
+      //     this.totalAmt += this.notes[index].value * amt.target.value //total amt calulation
+
+      //   }
+      //   console.log(this.totalAmt)
+      // }
 
 
-  noteIndex:any;
-  calculateTotal(amt:any, index:number){
-    // console.log(amt.target.value, index)
-    this.noteIndex = index;
-    if(amt !== 0){
-      this.totalAmt += this.notes[index].value * amt.target.value //total amt calulation
+      //merge calculate and deposite -----------------------------
+      // just display the total amt by claculating
+      //     this.totalAmt += this.notes[index].value * amt.target.value //total amt calulation
+      deposite() {
+        let totalDeposited = 0;
 
-    }
-    console.log(this.totalAmt)
-  }
+        this.notes.forEach(note => {
+          if (note.deposite >= 0) {
+            note.count += Number(note.deposite);
+            totalDeposited += note.deposite * note.value;
+            note.deposite = 0;
+          }
+        });
 
-  withdrawAmount!:number;
-  withdrawAmt(){
-    if(this.totalAmt > 0 && this.totalAmt >= this.withdrawAmount){
+        if (totalDeposited > 0) {
+          this.depositeLog.unshift({
+            dateTime: new Date(),
+            type: 'Deposit',
+            amount: totalDeposited
+          });
+        }
+
+        // if (this.totalAmt > 0) {
+          this.totalAmt += totalDeposited;
+        // }
+      }
+
+
+
+
+
+
+
+      withdrawAmount!:number;
+      withdrawAmt(){
+        if(this.totalAmt > 0 && this.totalAmt >= this.withdrawAmount){
       this.totalAmt -= this.withdrawAmount;
     }else{
       alert("Can Not Withdraw!")

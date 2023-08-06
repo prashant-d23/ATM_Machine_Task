@@ -9,7 +9,7 @@
     <tr *ngFor="let note of notes; let i = index">
       <th>{{note.value}}</th>
       <td>{{note.count}}</td>
-      <td><input type="text" [(ngModel)]="notes[i].deposite" (change)="calculateTotal($event,i)"></td>
+      <td><input type="text" [(ngModel)]="notes[i].deposite"></td>
     </tr>
     <tr>
       <th>Total</th>
